@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjh.eduService.mapper.EduCourseMapper">
+
+
+    <!--根据课程id查询课程确认信息-->
+    <select id="getPublishCourseInfo" resultType="com.zjh.eduService.entity.vo.CoursePublishVo">
+        select
+			a.id,
+			a.title,
+			a.price,
+			a.lesson_num as lessonNum,
+			a.cover,
+			b.description,
+			c.name as teacherName,
+			d.title as subjectLevelOne,
+			e.title as subjectLevelTwo
+from edu_course a left join edu_course_description b on a.id=b.id
+									left join edu_teacher c on a.teacher_id=c.id
+									left join edu_subject d on a.subject_parent_id=d.id
+									left join edu_subject e on a.subject_id=e.id
+where a.id = #{courseId}
+    </select>
+
+</mapper>

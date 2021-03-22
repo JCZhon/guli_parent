@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjh.testEmployees.mapper.EmployeesMapper">
+
+    <!--薪资分级-->
+    <select id="getSalary" resultType="com.zjh.testEmployees.entity.vo.Salary">
+        select salary,
+CASE
+		WHEN salary>20000 THEN 'A'
+		WHEN salary>15000 THEN 'B'
+		WHEN salary>10000 THEN 'C'
+		ELSE 'D'
+			END AS "rank"
+			FROM employees;
+
+    </select>
+
+    <select id="getCount" resultType="java.lang.Integer">
+        select COUNT(IFNULL(manager_id,0))from employees
+        <!--直接用COUNT(*)，上面只是测试-->
+    </select>
+
+    <select id="getEmployee" resultType="com.zjh.testEmployees.entity.vo.Employee">
+		SELECT
+			CONCAT(last_name,first_name) AS "name",
+			e.department_id AS departmentId,
+			d.department_name AS departmentName
+		FROM employees e,departments d
+		WHERE e.department_id = d.department_id
+	</select>
+
+    <select id="getEmployeeByTrue" resultType="com.zjh.testEmployees.entity.vo.EmployeeByBonus">
+		select
+			last_name,
+			department_name,
+			d.location_id,
+			city
+		from employees e,departments d,locations l
+		where e.department_id = d.department_id
+		and d.location_id = l.location_id
+		and commission_pct is not null;
+	</select>
+
+    <select id="getEmployeeByFalse" resultType="com.zjh.testEmployees.entity.vo.EmployeeByBonus">
+	select
+			last_name,
+			department_name,
+			d.location_id,
+			city
+		from employees e,departments d,locations l
+		where e.department_id = d.department_id
+		and d.location_id = l.location_id
+		and commission_pct is null;
+	</select>
+
+    <select id="getDepartment" resultType="com.zjh.testEmployees.entity.vo.DepartmentVo">
+select d.department_id as departmentId,
+				d.department_name as departmentName,
+				(
+					select count(*) from employees e
+					where e.department_id = d.department_id
+
+				) employeeSum
+from departments d;
+	</select>
+    <select id="getSameEmployee" parameterType="String" resultType="com.zjh.testEmployees.entity.vo.SameEmployee">
+		select
+		last_name as lastName,
+		salary,
+		department_name as departmentName
+		from employees e
+		INNER JOIN departments d
+		where e.department_id=
+(
+		select department_id
+		from employees where last_name = #{employeeName}
+)
+	</select>
+    <select id="salarybetween" resultType="java.lang.Integer">
+		SELECT
+	salary
+FROM
+	employees
+WHERE
+	salary BETWEEN 4000
+	AND 10000
+ORDER BY
+	salary ASC;
+	</select>
+
+
+</mapper>
