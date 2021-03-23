@@ -97,5 +97,13 @@ public class EmployeesController {
         return R.ok().data("data", list);
     }
 
+    @GetMapping("getMin")
+    @ApiOperation("查询工资最少的员工信息")
+    public R getMin() {
+        List<MinSalary> list = employeesService.getMinSalary();
+
+        return R.ok().data("data", list);
+    }
+
 }
 

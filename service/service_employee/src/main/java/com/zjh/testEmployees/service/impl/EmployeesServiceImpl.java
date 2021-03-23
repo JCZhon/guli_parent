@@ -72,5 +72,10 @@ public class EmployeesServiceImpl extends ServiceImpl<EmployeesMapper, Employees
         return employeesMapper.getSameEmployee(employeeName);
     }
 
+    @Override
+    public List<MinSalary> getMinSalary() {
+        return employeesMapper.getMinSalary();
+    }
+
 
 }

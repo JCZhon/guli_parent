@@ -87,6 +87,14 @@ WHERE
 ORDER BY
 	salary ASC;
 	</select>
+    <select id="getMinSalary" resultType="com.zjh.testEmployees.entity.vo.MinSalary">
+SELECT last_name as listName,
+		job_id as jobId,
+		salary
+FROM employees
+WHERE
+		salary =( SELECT MIN( salary ) FROM employees );
+	</select>
 
 
 </mapper>

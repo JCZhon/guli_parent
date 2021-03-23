@@ -28,4 +28,5 @@ public interface EmployeesService extends IService<Employees> {
 
     List<SameEmployee> getSameEmployee(String employeeName);
 
+    List<MinSalary> getMinSalary();
 }

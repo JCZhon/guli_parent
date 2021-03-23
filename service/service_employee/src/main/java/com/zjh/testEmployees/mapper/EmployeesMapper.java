@@ -34,4 +34,6 @@ public interface EmployeesMapper extends BaseMapper<Employees> {
     List<SameEmployee> getSameEmployee(String employeeName);
 
     List<Integer> salarybetween();
+
+    List<MinSalary> getMinSalary();
 }
