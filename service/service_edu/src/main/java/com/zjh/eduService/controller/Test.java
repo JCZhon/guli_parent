@@ -26,6 +26,10 @@ public class Test {
         Test.iteratorTest();
         int result = Test.testRecursion(4);
         System.out.println(result);
+
+        DoubleKey doubleKey = DoubleKey.getInstance();
+
+        Holder holder = Holder.getInstance();
     }
 
     public static void multiplicationForm() {
@@ -117,4 +121,78 @@ public class Test {
         }
         System.out.println(a);
     }
+
+
 }
+
+/**
+ * 懒汉式
+ */
+class Hungry {
+    private Hungry() {
+    }
+
+    private static Hungry HUNGRY = new Hungry();
+
+    public static Hungry getInstance() {
+        return HUNGRY;
+    }
+}
+
+/**
+ * 饿汉式,线程不安全
+ */
+class LazyMan {
+    private LazyMan() {
+    }
+
+    private static LazyMan LAZYMAN;
+
+    public static LazyMan getInstance() {
+        if (LAZYMAN == null) {
+            LAZYMAN = new LazyMan();
+        }
+        return LAZYMAN;
+    }
+}
+
+/**
+ * 双重检测锁模式
+ */
+class DoubleKey {
+    private DoubleKey() {
+        System.out.println(Thread.currentThread().getName() + "ok");
+    }
+
+    private volatile static DoubleKey doubleKey;
+
+    public static DoubleKey getInstance() {
+        if (doubleKey == null) {
+            synchronized (DoubleKey.class) {
+                if (doubleKey == null) {
+                    doubleKey = new DoubleKey();
+                }
+            }
+        }
+        return doubleKey;
+    }
+
+}
+
+/**
+ * 静态内部类的方式
+ */
+class Holder {
+    private Holder() {
+        System.out.println("获得holder");
+    }
+
+    public static Holder getInstance() {
+        return innerClass.holder;
+    }
+
+    private static class innerClass {
+        public static Holder holder = new Holder();
+    }
+}
+
