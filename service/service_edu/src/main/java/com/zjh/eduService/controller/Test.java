@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- *
+ *个人练习测试1
  */
 public class Test {
     public static void main(String[] args) {
@@ -30,6 +30,7 @@ public class Test {
         DoubleKey doubleKey = DoubleKey.getInstance();
 
         Holder holder = Holder.getInstance();
+
     }
 
     public static void multiplicationForm() {
@@ -125,6 +126,7 @@ public class Test {
 
 }
 
+
 /**
  * 懒汉式
  */
@@ -194,5 +196,7 @@ class Holder {
     private static class innerClass {
         public static Holder holder = new Holder();
     }
+
+
 }
 

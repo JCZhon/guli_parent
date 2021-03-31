@@ -2,13 +2,14 @@ package com.zjh.servicebase.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 
 import java.util.Date;
 
 /**
- * 自动填充处理
+ * mybatisPlus自动填充处理
  */
 @Component
 public class MyMetaObjectHandler implements MetaObjectHandler {
